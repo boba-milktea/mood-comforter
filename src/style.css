@@ -1,0 +1,220 @@
+/* Import Montserrat font from Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap");
+
+/* Define color variables in the :root */
+:root {
+  --clr-bk: #fcfaf9;
+  --clr-text: #333333;
+  --clr-btn-bk: #bb9ab1;
+  --clr-primary: #8d77ab;
+  --clr-secondary: #fada7a;
+  --typewriter-speed: 5s;
+  --typewriter-charaters: 27;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  display: grid;
+  min-height: 100vh;
+  place-content: center;
+  place-items: center;
+  background-color: var(--clr-bk);
+  color: var(--clr-text);
+  line-height: 1.6;
+  padding: 1.5em;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  color: var(--clr-primary);
+}
+
+p {
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: var(--clr-text);
+}
+
+/* Headings */
+h1 {
+  font-size: clamp(2rem, 2vw, 5rem);
+  color: var(--clr-primary);
+  text-align: center;
+}
+
+.tagline {
+  font-size: clamp(1.5rem, 2vw, 3rem);
+  position: relative;
+  width: max-content;
+  margin-bottom: 1em;
+}
+
+/* tagline animation */
+
+.tagline::before,
+.tagline::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.tagline::before {
+  background: var(--clr-bk);
+  animation: typewriter var(--typewriter-speed)
+    steps(var(--typewriter-charaters)) 1s forwards;
+}
+
+.tagline::after {
+  width: 0.08em;
+  background: var(--clr-text);
+  animation:
+    typewriter var(--typewriter-speed) steps(var(--typewriter-charaters)) 1s
+      forwards,
+    blink 1s steps(28) infinite;
+}
+
+@keyframes typewriter {
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes blink {
+  to {
+    background: transparent;
+  }
+}
+
+/* Checkbox */
+.checkbox-field {
+  border: 1px solid transparent;
+  border-top-color: var(--clr-text);
+  padding: 2em;
+}
+
+legend {
+  margin: auto;
+  padding: 0 10px;
+  font-size: 1.3rem;
+}
+
+.checkbox {
+  font-size: 1.25rem;
+  position: relative;
+  background: var(--clr-primary);
+  border-radius: 1.25em;
+  width: 3em;
+  height: 1.5em;
+  margin-bottom: 1em;
+}
+
+.checkbox input[type="checkbox"] {
+  appearance: none;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.checkbox input[type="checkbox"]::before {
+  content: "";
+  background: #fff;
+  border-radius: 1.25em;
+  position: absolute;
+  top: 14%;
+  left: -41%;
+  height: 70%;
+  width: 85%;
+}
+
+.checkbox input[type="checkbox"]::after {
+  background: var(--clr-btn-bk);
+  content: "";
+  border-radius: 1.25em;
+  height: 1.2em;
+  width: 1.2em;
+  opacity: 0.6;
+  position: absolute;
+  transform: translate(-1.8em, -50%);
+  top: 50%;
+  transition: all 0.4s;
+}
+
+.checkbox input[type="checkbox"]:checked::after {
+  background: #fff;
+  opacity: 1;
+  transform: translate(50%, -50%);
+}
+
+.checkbox input[type="checkbox"]:checked::before {
+  background: var(--clr-btn-bk);
+}
+
+label {
+  position: absolute;
+  left: 4em;
+}
+
+/* Buttons */
+button {
+  font-family: "Montserrat", sans-serif;
+  background-color: var(--clr-btn-bk);
+  color: var(--clr-text);
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ffb700; /* Darker golden yellow on hover */
+}
+
+/* Containers */
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.875em;
+  background-color: var(--off-white);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 1em;
+  text-align: center;
+}
+
+/* Mood Messages */
+.message {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: var(--clr-btn-bk);
+  border-radius: 10px;
+  color: #fff; /* White text for better contrast */
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 30px;
+  color: var(--clr-btn-bk);
+}
+
+footer p {
+  margin: 5px 0;
+}

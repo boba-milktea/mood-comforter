@@ -1,13 +1,19 @@
 import { data } from "./data";
 
+//data
+const feedbackData = {
+  moodChecked: [],
+  result: null,
+};
+
 //dom
 const dom = {
   container: document.getElementById("container"),
   fieldset: document.querySelector(".checkbox-field"),
+  message: document.getElementById("message"),
 };
 
 //component function
-//1. chekbox
 const createCheckbox = (optionData) => {
   const checkboxContainer = document.createElement("div");
   checkboxContainer.classList.add("checkbox");
@@ -25,6 +31,13 @@ const createCheckbox = (optionData) => {
   return checkboxContainer;
 };
 
+//util function
+const getMessage = (mood) => {
+  data.moodMessages[mood][
+    Math.floor(Math.random() * data.moodMessages[mood].length)
+  ];
+};
+
 //handler
 const handleLoad = () => {
   const legend = document.createElement("legend");
@@ -38,56 +51,37 @@ const handleLoad = () => {
     const checkboxDom = createCheckbox(option);
     dom.fieldset.append(legend, checkboxDom, sendBtn);
   });
-
-  const moodMessage = document.createElement("p");
-  moodMessage.innerText = "Feeling good today?";
-  moodMessage.classList.add("message");
-  dom.container.append(moodMessage);
+  dom.message.innerText = "Feeling good today?";
 };
 
-const moodArray = [];
 const handleSend = () => {
   const allMood = document.querySelectorAll("input[type=checkbox]");
 
-  allMood.forEach((mood) => {
-    if (mood.checked && !moodArray.includes(mood.id)) {
-      moodArray.push(mood.id);
-    } else if (!mood.checked && moodArray.includes(mood.id)) {
-      const index = moodArray.indexOf(mood.id);
-      moodArray.splice(index, 1);
-    }
-  });
+  feedbackData.moodChecked = [...allMood]
+    .filter((mood) => mood.checked)
+    .map((mood) => mood.id);
 
-  let result = null;
-  if (moodArray.length === 1) {
-    for (let mood in data.moodMessages) {
-      result = mood === moodArray[0] ? data.moodMessages[mood][0] : result;
-    }
+  if (feedbackData.moodChecked.length === 1) {
+    const mood = feedbackData.moodChecked[0];
+    feedbackData.result = getMessage(mood);
   }
 
-  if (moodArray.length === 2 && moodArray.includes("happy" && "sad")) {
-    result = "I don't understand human";
-  } else if (moodArray.length === 2 && moodArray.includes("sad" && "tired")) {
-    result = "I understand that you need a rest";
-  } else if (
-    moodArray.length === 2 &&
-    moodArray.includes("tired" && "excited")
-  ) {
-    result = "Everything will be good";
-  } else if (
-    moodArray.length === 2 &&
-    moodArray.includes("happy" && "excited")
-  ) {
-    result = "I'm happy for you";
-  } else if (moodArray.length === 2 && moodArray.includes("sad" && "excited")) {
-    result = "Keep sometime for yourself";
-  } else if (moodArray.length === 2 && moodArray.includes("happy" && "tired")) {
-    result = "Don't forget to rest";
-  } else {
-    result = "That's a complex feeling you have right now.";
+  if (feedbackData.moodChecked.length === 2) {
+    const mixedMood = feedbackData.moodChecked.sort().join("_");
+    feedbackData.result =
+      data.moodMessages[mixedMood][
+        Math.floor(Math.random() * data.moodMessages[mixedMood].length)
+      ];
   }
-  console.log(result);
-  // console.log(moodArray);
+
+  if (
+    feedbackData.moodChecked.length === 3 ||
+    feedbackData.moodChecked.length === 4
+  ) {
+    feedbackData.result = "You're experiencing a complex feeling right now.";
+  }
+
+  message.innerText = feedbackData.result;
 };
 
 //events

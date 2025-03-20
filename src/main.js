@@ -71,6 +71,9 @@ const handleChange = (e) => {
 const handleSave = () => {
   const stringifiedMoods = JSON.stringify(data.moodChecked);
   localStorage.setItem("myMood", stringifiedMoods);
+  let moodToSave = "";
+  data.moodChecked.forEach((mood) => (moodToSave += `'${mood}' `));
+  message.innerText = `Your mood ${moodToSave} is saved`;
 };
 
 //events

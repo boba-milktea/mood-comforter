@@ -1,10 +1,5 @@
 import { data } from "./data";
-
-//data
-const feedbackData = {
-  moodChecked: [],
-  result: null,
-};
+import { getMessage } from "./utils/get-message";
 
 //dom
 const dom = {
@@ -31,57 +26,51 @@ const createCheckbox = (optionData) => {
   return checkboxContainer;
 };
 
-//util function
-const getMessage = (mood) => {
-  data.moodMessages[mood][
-    Math.floor(Math.random() * data.moodMessages[mood].length)
-  ];
-};
-
 //handler
 const handleLoad = () => {
   const legend = document.createElement("legend");
   legend.innerText = "Tell me about your feeling";
 
   const sendBtn = document.createElement("button");
-  sendBtn.innerText = "Send";
-  sendBtn.addEventListener("click", handleSend);
+  sendBtn.innerText = "Save";
+  sendBtn.addEventListener("click", handleSave);
 
   data.checkbox.forEach((option) => {
     const checkboxDom = createCheckbox(option);
+    checkboxDom
+      .querySelector("input")
+      .addEventListener("change", (e) => handleChange(e));
     dom.fieldset.append(legend, checkboxDom, sendBtn);
   });
   dom.message.innerText = "Feeling good today?";
 };
 
-const handleSend = () => {
-  const allMood = document.querySelectorAll("input[type=checkbox]");
-
-  feedbackData.moodChecked = [...allMood]
-    .filter((mood) => mood.checked)
-    .map((mood) => mood.id);
-
-  if (feedbackData.moodChecked.length === 1) {
-    const mood = feedbackData.moodChecked[0];
-    feedbackData.result = getMessage(mood);
+const handleChange = (e) => {
+  const checkedMood = data.moodChecked;
+  if (!checkedMood) {
+    data.result = "Tell me how you feel.";
   }
 
-  if (feedbackData.moodChecked.length === 2) {
-    const mixedMood = feedbackData.moodChecked.sort().join("_");
-    feedbackData.result =
-      data.moodMessages[mixedMood][
-        Math.floor(Math.random() * data.moodMessages[mixedMood].length)
-      ];
+  if (e.target.checked) {
+    checkedMood.push(e.target.id);
+  } else {
+    checkedMood.splice(checkedMood.indexOf(e.target.id), 1);
   }
 
-  if (
-    feedbackData.moodChecked.length === 3 ||
-    feedbackData.moodChecked.length === 4
-  ) {
-    feedbackData.result = "You're experiencing a complex feeling right now.";
+  if (checkedMood.length === 1) {
+    data.result = getMessage(checkedMood[0]);
+  } else if (checkedMood.length === 2) {
+    data.result = getMessage(checkedMood.sort().join("_"));
+  } else if (checkedMood.length === 3 || checkedMood.length === 4) {
+    data.result = "You're experiencing a complex feeling right now.";
   }
 
-  message.innerText = feedbackData.result;
+  message.innerText = data.result;
+};
+
+const handleSave = () => {
+  const stringifiedMoods = JSON.stringify(data.moodChecked);
+  localStorage.setItem("myMood", stringifiedMoods);
 };
 
 //events

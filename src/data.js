@@ -34,5 +34,42 @@ export const data = {
       "What an adventure today will be! 🚀",
       "Harness that excitement and make things happen! 💥",
     ],
+    happy_tired: [
+      "We will have more fun next time!",
+      "Even joy needs a break sometimes. Rest up! 😴",
+      "Happiness is still there, just resting for now. 🌙",
+      "Recharge and let happiness shine again tomorrow! ☀️",
+    ],
+    happy_excited: [
+      "Good, let's keep going.",
+      "Your energy is contagious! Keep spreading the joy! 🎉",
+      "This is the perfect moment to create something amazing! 🚀",
+      "Let’s ride this wave of excitement together! 🌊",
+    ],
+    excited_happy: [
+      "I don't think I understand that feeling.",
+      "Emotions are complicated, and that's okay. 💛",
+      "It's okay to feel mixed emotions—just take it one step at a time. 🌈",
+      "Maybe happiness and sadness are working together today. 🤔",
+    ],
+    excited_sad: [
+      "That's a complex feeling.",
+      "You might be nervous or hopeful—both are valid. 💙",
+      "Excitement can come with uncertainty. Just breathe. 🌬️",
+      "Embrace the mix—it's part of the journey. 🚶‍♂️",
+    ],
+    sad_tired: [
+      "You need to sleep.",
+      "Rest can help ease sadness. Be kind to yourself. 💤",
+      "A deep breath and a nap might help. 🌿",
+      "Take things slow—better days are ahead. ☀️",
+    ],
+    excited_tired: [
+      "Come back next time.",
+      "Your body is tired, but your mind is buzzing! Find balance. ⚖️",
+      "Excitement needs energy—rest up and enjoy it fully later! 🔋",
+      "A short break might make your excitement even stronger! 🎇",
+    ],
+    happy_sad: ["We are just human beings.", "Glad you are not a robot."],
   },
 };

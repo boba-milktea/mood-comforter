@@ -72,4 +72,6 @@ export const data = {
     ],
     happy_sad: ["We are just human beings.", "Glad you are not a robot."],
   },
+  moodChecked: [],
+  result: null,
 };

@@ -177,11 +177,17 @@ button {
   padding: 10px 20px;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-button:hover {
-  background-color: #ffb700; /* Darker golden yellow on hover */
+button:hover,
+button:focus {
+  background-color: #957abc;
+  color: var(--clr-bk);
+}
+
+button:active {
+  transform: translateY(5px);
 }
 
 /* Containers */
@@ -199,12 +205,13 @@ button:hover {
 
 /* Mood Messages */
 .message {
+  text-align: center;
   font-size: 1.5rem;
   margin-top: 20px;
   padding: 20px;
   background-color: var(--clr-btn-bk);
   border-radius: 10px;
-  color: #fff; /* White text for better contrast */
+  color: #fff;
 }
 
 /* Footer */
